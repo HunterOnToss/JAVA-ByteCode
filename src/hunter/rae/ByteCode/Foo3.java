@@ -9,5 +9,7 @@ public class Foo3 {
         return 2;
     }
 
+    public static int returnConst(int a, int b) {
+        return a;
     }
 }

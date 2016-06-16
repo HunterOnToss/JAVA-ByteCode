@@ -126,3 +126,25 @@ frame => massive local var >> []
 
 IReturn снимает со стека число ICONST_2 и вернет его. После чего стек 
 удалится
+
+===
+  public static returnConst(II)I
+   L0
+    LINENUMBER 13 L0
+    ILOAD 0
+    IRETURN
+   L1
+    LOCALVARIABLE a I L0 L1 0
+    LOCALVARIABLE b I L0 L1 1
+    MAXSTACK = 1
+    MAXLOCALS = 2
+   
+    
+ILOAD 0 возьмем переменную локальную из массива по индексу 0 и вернем
+frame => stack >> []
+
+LOCALVARIABLE a I L0 L1 0
+LOCALVARIABLE b I L0 L1 1
+
+MAXLOCALS =>>> frame => massive local var >> [a, b]
+
