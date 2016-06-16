@@ -97,3 +97,16 @@ Constant pool:
 #15 = Utf8               Foo2.java
 
 max size of the CP ~65k
+
+#============================================================================================
+Сегодня посмотрим байт код метода noOp в Foo3
+
+public static noOp()V
+  L0
+   LINENUMBER 10 L0
+   RETURN
+   MAXSTACK = 0
+   MAXLOCALS = 0
+   
+frame => stack >> []
+frame => massive local var >> []
