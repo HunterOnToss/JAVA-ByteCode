@@ -110,3 +110,19 @@ public static noOp()V
    
 frame => stack >> []
 frame => massive local var >> []
+
+Добавили return 2; и тип int
+
+  public static noOp()I
+   L0
+    LINENUMBER 9 L0
+    ICONST_2
+    IRETURN
+    MAXSTACK = 1
+    MAXLOCALS = 0
+    
+frame => stack >> [2]
+frame => massive local var >> []
+
+IReturn снимает со стека число ICONST_2 и вернет его. После чего стек 
+удалится

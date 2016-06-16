@@ -5,7 +5,9 @@ package hunter.rae.ByteCode;
  */
 public class Foo3 {
 
-    public static void noOp() {
+    public static int noOp() {
+        return 2;
+    }
 
     }
 }
