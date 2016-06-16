@@ -148,3 +148,85 @@ LOCALVARIABLE b I L0 L1 1
 
 MAXLOCALS =>>> frame => massive local var >> [a, b]
 
+#============================================================================================
+Разбираем метод public void test() {
+
+L9
+ LOCALVARIABLE this Lhunter/rae/ByteCode/Foo3; L0 L9 0 указатель на объект
+ LOCALVARIABLE i1 D L1 L9 1
+ LOCALVARIABLE i2 D L2 L9 3
+ LOCALVARIABLE i3 I L3 L9 5
+ LOCALVARIABLE i4 I L4 L9 6
+ MAXSTACK = 4
+ MAXLOCALS = 7
+
+byte будет занимать скорее всего тоже 32 бита ! Нужно проверить!
+double = 64 бита, int 32 бита
+
+stack = []
+local = [this, i1[double], i1, i2[double], i2, i3, i4]
+
+   L0
+    LINENUMBER 17 L0
+    LDC 0.34
+    DSTORE 1
+   L1
+    LINENUMBER 18 L1
+    LDC 0.23
+    DSTORE 3
+   L2
+    LINENUMBER 19 L2
+    ICONST_0
+    ISTORE 5
+   L3
+    LINENUMBER 20 L3
+    ICONST_1
+    ISTORE 6
+    
+Тут все понятно просто грузим локальные переменные значениями
+LINENUMBER 17 L0 указывает на 17 строку в реальном коде
+LDC - число и загружаем его на стек 
+DSTORE - переносим значения со стека в массив локальных переменных
+ICONST_0 часто используемые числа 
+
+
+i1++;
+i2 = i2 + i1;
+
+  L4
+    LINENUMBER 21 L4
+    DLOAD 1
+    DCONST_1
+    DADD
+    DSTORE 1
+   L5
+    LINENUMBER 22 L5
+    DLOAD 3
+    DLOAD 1
+    DADD
+    DSTORE 3
+    
+DLOAD загружает из ячейки локальных переменных значение 
+DCONST_1 добавляет константу 1.00 на стек 
+DADD сложить два добла со стека 
+DSTORE поместить результат
+ 
+L6
+ LINENUMBER 23 L6
+ IINC 5 1
+
+IINC к 5 локальной переменной добавь 1
+
+что быстрее 
+
+i1 = i1 + i1
+i2 = i2 + i2
+i3 = i3 + i3
+i4 = i4 + i4
+
+или же 
+
+i1 = i1 + i1
+i1 = i1 + i1
+
+     
