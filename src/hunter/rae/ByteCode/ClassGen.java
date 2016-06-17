@@ -38,6 +38,8 @@ public class ClassGen {
         generateMinMethod(cw);
         generateMin2Method(cw);
 
+        generateSumMethod(cw);
+
         cw.visitEnd();                  // заканчиваем генерацию класса
 
         return cw.toByteArray();        // возвращаем массив, который содержит байт код
@@ -228,5 +230,58 @@ public class ClassGen {
 //        }
 
         mv.visitEnd();
+    }
+
+    private void generateSumMethod(final ClassWriter cw) {
+        final MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
+                "sum", // method name
+                "(I)I", // method descriptor
+                null,    // exceptions
+                null);   // method attributes
+
+        Label forLabel = new Label();
+        Label label = new Label();
+        mv.visitCode();
+
+        // int result = 0;
+        mv.visitInsn(Opcodes.ICONST_0);
+        mv.visitVarInsn(Opcodes.ISTORE, 1);
+
+        // int i = 0;
+        mv.visitInsn(Opcodes.ICONST_0);
+        mv.visitVarInsn(Opcodes.ISTORE, 2);
+
+        // i <= a;
+        mv.visitLabel(forLabel);
+        mv.visitVarInsn(Opcodes.ILOAD, 2);
+        mv.visitVarInsn(Opcodes.ILOAD, 0);
+        mv.visitJumpInsn(Opcodes.IF_ICMPGE, label);
+
+
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitVarInsn(Opcodes.ILOAD, 2);
+        mv.visitInsn(Opcodes.ICONST_1);
+        // (i + 1)
+        mv.visitInsn(Opcodes.IADD);
+        // result + (i + 1)
+        mv.visitInsn(Opcodes.IADD);
+        // result = result + (i + 1);
+        mv.visitVarInsn(Opcodes.ISTORE, 1);
+
+        // i++;
+        mv.visitIincInsn(2, 1);
+        mv.visitJumpInsn(Opcodes.GOTO, forLabel);
+
+        mv.visitLabel(label);
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitInsn(Opcodes.IRETURN);
+        mv.visitMaxs(3, 3);
+//        public static int sum(final int a) {
+//            int result = 0;
+//            for (int i = 0; i < a; i++) {
+//                result += (i + 1);
+//            }
+//            return result;
+//        }
     }
 }
