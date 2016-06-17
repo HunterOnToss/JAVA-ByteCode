@@ -23,4 +23,32 @@ public class Foo3 {
         i3++;
         i4 = i3 + i4;
     }
+
+    public static int mod(final int val) {
+        if (val >= 0) {
+            return val;
+        } else {
+            return -val;
+        }
+    }
+
+    public static int mod2(final int val) {
+        final int result;
+        if (val >= 0) {
+            result = val;
+        } else {
+            result = -val;
+        }
+
+        return result;
+    }
+
+    public static int max(final int left, final int right) {
+        if (left >= right) {
+            return left;
+        } else {
+            return right;
+        }
+    }
+
 }

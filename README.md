@@ -229,4 +229,83 @@ i4 = i4 + i4
 i1 = i1 + i1
 i1 = i1 + i1
 
-     
+#============================================================================================
+Работаем с if(){}else{}
+
+public static mod(I)I
+   L0
+    LINENUMBER 28 L0
+    ILOAD 0
+    IFLT L1
+   L2
+    LINENUMBER 29 L2
+    ILOAD 0
+    IRETURN
+   L1
+    LINENUMBER 31 L1
+   FRAME SAME
+    ILOAD 0
+    INEG
+    IRETURN
+   L3
+    LOCALVARIABLE val I L0 L3 0
+    MAXSTACK = 1
+    MAXLOCALS = 1
+    
+IFLT - if lower than
+INEG - переводит число в отрицание
+
+public static mod2(I)I
+   L0
+    LINENUMBER 37 L0
+    ILOAD 0
+    IFLT L1
+   L2
+    LINENUMBER 38 L2
+    ILOAD 0
+    ISTORE 1
+   L3
+    GOTO L4
+   L1
+    LINENUMBER 40 L1
+   FRAME SAME
+    ILOAD 0
+    INEG
+    ISTORE 1
+   L4
+    LINENUMBER 43 L4
+   FRAME APPEND [I]
+    ILOAD 1
+    IRETURN
+   L5
+    LOCALVARIABLE result I L3 L1 1
+    LOCALVARIABLE val I L0 L5 0
+    LOCALVARIABLE result I L4 L5 1
+    MAXSTACK = 1
+    MAXLOCALS = 2
+
+GOTO старый добрый. 
+
+public static max(II)I
+   L0
+    LINENUMBER 47 L0
+    ILOAD 0
+    ILOAD 1
+    IF_ICMPLT L1
+   L2
+    LINENUMBER 48 L2
+    ILOAD 0
+    IRETURN
+   L1
+    LINENUMBER 50 L1
+   FRAME SAME
+    ILOAD 1
+    IRETURN
+   L3
+    LOCALVARIABLE left I L0 L3 0
+    LOCALVARIABLE right I L0 L3 1
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+
+IF_ICMPLT succeeds if and only if value1 < value2
