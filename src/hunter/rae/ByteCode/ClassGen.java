@@ -1,6 +1,7 @@
 package hunter.rae.ByteCode;
 
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import java.io.FileOutputStream;
@@ -26,6 +27,10 @@ public class ClassGen {
                 null);
         generateDefaultConstructor(cw); // генерируем байт-код конструктора по умолчанию
         generateSummMethod(cw);         // генерируем метод sum
+
+        generateMinMethod(cw);
+        generateMin2Method(cw);
+
         cw.visitEnd();                  // заканчиваем генерацию класса
 
         return cw.toByteArray();        // возвращаем массив, который содержит байт код
@@ -74,6 +79,79 @@ public class ClassGen {
 //            }
 //
 //        }
+
+        mv.visitEnd();
+    }
+
+    private void generateMinMethod(final ClassWriter cw) {
+        final MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
+                "min", // method name
+                "(II)I", // method descriptor
+                null, // exceptions
+                null // method attributes
+        );
+
+        mv.visitCode();
+        final Label elseLabel = new Label();
+
+//        public static int min(int a, int b) {
+//            if (a <= b)
+//                return a;
+//            else
+//                return b;
+//        }
+
+        mv.visitVarInsn(Opcodes.ILOAD, 0);
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitJumpInsn(Opcodes.IF_ICMPLT, elseLabel);
+        mv.visitVarInsn(Opcodes.ILOAD, 0);
+        mv.visitInsn(Opcodes.IRETURN);
+        mv.visitLabel(elseLabel);
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitInsn(Opcodes.IRETURN);
+        mv.visitMaxs(2, 2);
+
+        mv.visitEnd();
+    }
+
+    private void generateMin2Method(final ClassWriter cw ) {
+        final MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
+                "min",    // method name
+                "(III)I", // method descriptor
+                null,     // exceptions
+                null);    // method attributes
+        mv.visitCode();
+        final Label elseLabel = new Label();
+        final Label elseLabel2 = new Label();
+
+//        public static int min(int a, int b, int c) {
+//            if (a < b && a < c) return a;
+//            if (b < c) return b;
+//            return c;
+//        }
+
+        // comparing local variable 0 with 1 and saving min to the 0
+        mv.visitVarInsn(Opcodes.ILOAD, 0);
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitJumpInsn(Opcodes.IF_ICMPLE, elseLabel);
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitVarInsn(Opcodes.ISTORE, 0);
+        mv.visitLabel(elseLabel);
+
+        // comparing local variable 0 with 2 and saving min to the 0
+        mv.visitVarInsn(Opcodes.ILOAD, 0);
+        mv.visitVarInsn(Opcodes.ILOAD, 2);
+        mv.visitJumpInsn(Opcodes.IF_ICMPLE, elseLabel2);
+        mv.visitVarInsn(Opcodes.ILOAD, 2);
+        mv.visitVarInsn(Opcodes.ISTORE, 0);
+        mv.visitLabel(elseLabel2);
+
+        // returning local variable 0 (since it's the minimum)
+        mv.visitVarInsn(Opcodes.ILOAD, 0);
+        mv.visitInsn(Opcodes.IRETURN);
+        mv.visitMaxs(2, 2);
+
+        mv.visitMaxs(2, 2);
 
         mv.visitEnd();
     }
