@@ -309,3 +309,29 @@ public static max(II)I
 
 
 IF_ICMPLT succeeds if and only if value1 < value2
+
+  public static max(FF)F
+   L0
+    LINENUMBER 63 L0
+    FLOAD 0
+    FLOAD 1
+    FCMPL
+    IFLT L1
+   L2
+    LINENUMBER 64 L2
+    FLOAD 0
+    FRETURN
+   L1
+    LINENUMBER 66 L1
+   FRAME SAME
+    FLOAD 1
+    FRETURN
+   L3
+    LOCALVARIABLE left F L0 L3 0
+    LOCALVARIABLE right F L0 L3 1
+    MAXSTACK = 2
+    MAXLOCALS = 2
+}
+
+FCMPL FCMPG DCMPL DCMPG отличаются только тем что будут разные проверки 
+c NaN

@@ -51,4 +51,20 @@ public class Foo3 {
         }
     }
 
+    public static double max(final double left, final double right) {
+        if (left >= right) {
+            return left;
+        } else {
+            return right;
+        }
+    }
+
+    public static float max(final float left, final float right) {
+        if (left >= right) {
+            return left;
+        } else {
+            return right;
+        }
+    }
+
 }
