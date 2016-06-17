@@ -26,6 +26,10 @@ public class ClassGen {
                 "java/lang/Object", // класс от которого наследуется
                 null);
         generateDefaultConstructor(cw); // генерируем байт-код конструктора по умолчанию
+
+        generateDMethod(cw);
+        generateAbsMethod(cw);
+
         generateSummMethod(cw);         // генерируем метод sum
 
         generateMinMethod(cw);
@@ -152,6 +156,33 @@ public class ClassGen {
         mv.visitMaxs(2, 2);
 
         mv.visitMaxs(2, 2);
+
+        mv.visitEnd();
+    }
+
+    private void generateDMethod(final ClassWriter cw) {
+        final MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
+                "d", // method name
+                "(DDD)D", // method descriptor
+                null,    // exceptions
+                null);   // method attributes
+        mv.visitCode();
+
+
+
+        mv.visitEnd();
+    }
+
+    private void generateAbsMethod(final ClassWriter cw ) {
+        final MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC,
+                "abs",    // method name
+                "(D)D", // method descriptor
+                null,     // exceptions
+                null);    // method attributes
+        mv.visitCode();
+        final Label elseLable = new Label();
+
+
 
         mv.visitEnd();
     }
