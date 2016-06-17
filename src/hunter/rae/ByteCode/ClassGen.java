@@ -1,5 +1,8 @@
 package hunter.rae.ByteCode;
 
+import com.sun.org.apache.bcel.internal.generic.DREM;
+import com.sun.org.apache.bcel.internal.generic.DRETURN;
+import com.sun.org.apache.bcel.internal.generic.INEG;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
@@ -168,6 +171,22 @@ public class ClassGen {
                 null);   // method attributes
         mv.visitCode();
 
+        mv.visitVarInsn(Opcodes.DLOAD, 2);
+        mv.visitVarInsn(Opcodes.DLOAD, 2);
+        mv.visitInsn(Opcodes.DMUL);
+        mv.visitLdcInsn(4.0);
+        mv.visitVarInsn(Opcodes.DLOAD, 0);
+        mv.visitInsn(Opcodes.DMUL);
+        mv.visitVarInsn(Opcodes.DLOAD, 4);
+        mv.visitInsn(Opcodes.DMUL);
+        mv.visitInsn(Opcodes.DSUB);
+
+        mv.visitInsn(Opcodes.DRETURN);
+
+        mv.visitMaxs(4, 6);
+//        public static double d(final double a, final double b, final double c) {
+//            return b * b - 4 * a * c;
+//        }
 
 
         mv.visitEnd();
@@ -182,7 +201,31 @@ public class ClassGen {
         mv.visitCode();
         final Label elseLable = new Label();
 
+        mv.visitIntInsn(Opcodes.DLOAD, 0);
+        mv.visitInsn(Opcodes.DCONST_0);
+        // compare variable with 0
+        mv.visitInsn(Opcodes.DCMPL);
+        // compare result of double comparation with 0
+        mv.visitJumpInsn(Opcodes.IFLT, elseLable);
 
+        // if the result of comparation has been greate then 0 then the values if postitive
+        mv.visitIntInsn(Opcodes.DLOAD, 0);
+        mv.visitInsn(Opcodes.DRETURN);
+
+        // if the result of comparation has been less then 0 then the values if negative
+        mv.visitLabel(elseLable);
+        mv.visitIntInsn(Opcodes.DLOAD, 0);
+        mv.visitInsn(Opcodes.DNEG);
+        mv.visitInsn(Opcodes.DRETURN);
+
+        mv.visitMaxs(4, 2);
+//        public static double abs(final double a) {
+//            if (a >= 0) {
+//                return a;
+//            } else {
+//                return -a;
+//            }
+//        }
 
         mv.visitEnd();
     }
