@@ -51,5 +51,17 @@ public class Foo {
 //    MAXSTACK = 2
 //    MAXLOCALS = 2
 
+    public static int forLoop2() {
+        int result = 0;
+        int i = 0;
+
+        loop: for(;;) if (i < 10) {
+            result = result + i;
+            i++;
+            continue loop;
+        } else {
+            return result;
+        }
+    }
 
 }
