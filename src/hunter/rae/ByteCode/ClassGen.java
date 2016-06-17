@@ -59,6 +59,12 @@ public class ClassGen {
 
         mv.visitCode();
 
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitVarInsn(Opcodes.ILOAD, 2);
+        mv.visitInsn(Opcodes.IADD);
+        mv.visitInsn(Opcodes.IRETURN);
+        mv.visitMaxs(2, 3);
+
 //        TASK:
 
 //        public class Summator{
