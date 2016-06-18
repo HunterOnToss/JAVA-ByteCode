@@ -21,4 +21,13 @@ public class Invoke {
     class Class4 implements Interface {
         public void method3(){};
     }
+
+    public static int sum(int i) {
+        if (i>0) return i + sum(i - 1);
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        Invoke.sum(10);
+    }
 }
