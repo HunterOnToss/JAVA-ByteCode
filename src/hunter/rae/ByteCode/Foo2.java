@@ -42,4 +42,16 @@ public class Foo2 {
         }
 
     }
+
+    public static String st (String i) {
+
+        switch (i) {
+            case "unknown": return "i";
+            case "new": return "i";
+            case "admin": return "i";
+            case "user": return "i";
+            case "superuser": return "i";
+            default: return "b";
+        }
+    }
 }
