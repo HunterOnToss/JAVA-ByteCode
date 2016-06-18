@@ -28,6 +28,19 @@ public class Invoke {
     }
 
     public static void main(String[] args) {
-        Invoke.sum(10);
+//        Invoke.sum(10);
+        A a = new B();
+        System.out.println(a.random());
     }
+
+    public static class A {
+        public int random() {return 1;}
+        public int m() { return 2;}
+    }
+
+    public static class B extends A {
+        public int random() {return 4;}
+    }
+
+
 }
